@@ -2,7 +2,7 @@
 
 In this program, we will be implementing a Highest Common Factor finder using a datapath and a controller.
 # Algorithm used
-<img src="Images/algo.jpg" alt="Alt Text" width="300" height="500">
+<img src="Images/algo.jpg" alt="Alt Text" width="400" height="500">
 
 # Datapath 
 <img src="Images/datapath.jpg" alt="Alt Text" width="800" height="300">
