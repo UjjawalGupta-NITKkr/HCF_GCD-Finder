@@ -5,12 +5,12 @@ module CONTROLLER(
     reg [2:0] state, next_state;
 
     
-    localparam IDLE = 3'b000,   
-               LOAD_A = 3'b001, 
-               LOAD_B = 3'b010,
-               COMPARE = 3'b011, 
-               UPDATE = 3'b100,  
-               DONE = 3'b101;   
+    localparam S0 = 3'b000,   
+               S1 = 3'b001, 
+               S2 = 3'b010,
+               S3 = 3'b011, 
+               S4 = 3'b100,  
+               S5 = 3'b101;   
 
     
     always @(posedge clk) begin
@@ -20,13 +20,13 @@ module CONTROLLER(
     
     always @(*) begin
         case (state)
-            IDLE: next_state <= (start) ? LOAD_A : IDLE;
-            LOAD_A: next_state <= LOAD_B;
-            LOAD_B: next_state <= COMPARE;
-            COMPARE: next_state <= (eq) ? DONE : UPDATE;
-            UPDATE: next_state <= COMPARE;
-            DONE: next_state <= DONE;
-            default: next_state <= IDLE;
+          S0: next_state <= (start) ? S1 : S0;
+            S1: next_state <= S2;
+            S2: next_state <= S3;
+          S3: next_state <= (eq) ? S5 : S4;
+            S4: next_state <= S3;
+            S5: next_state <= S5;
+            default: next_state <= S0;
         endcase
     end
 
@@ -36,21 +36,21 @@ module CONTROLLER(
         ldA = 0; ldB = 0; sel1 = 0; sel2 = 0; sel_in = 0; done = 0;
 
         case (state)
-            IDLE: begin
+            S0: begin
                 
                 done = 0;
             end
-            LOAD_A: begin
+            S1: begin
                 
                 ldA = 1;
                 sel_in = 1; 
             end
-            LOAD_B: begin
+            S2: begin
             
                 ldB = 1;
                 sel_in = 1; 
             end
-            COMPARE: begin
+            S3: begin
               
                 if (lt) begin
                     sel1 = 1; sel2 = 0; ldB = 1; 
@@ -58,11 +58,11 @@ module CONTROLLER(
                     sel1 = 0; sel2 = 1; ldA = 1; 
                 end
             end
-            UPDATE: begin
+            S4: begin
                 
                 sel_in = 0; 
             end
-            DONE: begin
+            S5: begin
                
                 done = 1;
             end
