@@ -16,4 +16,4 @@ In this program, we will be implementing a Highest Common Factor finder using a 
 # Control Path 2
 <img src="Images/controller2.jpg" alt="Alt Text" width="400" height="500"> <img src="Images/controller2_simplified.jpg" alt="Alt Text" width="400" height="500">
 
-# RTL Design
+
